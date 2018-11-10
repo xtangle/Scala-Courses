@@ -1,0 +1,120 @@
+To prove:
+
+(xs union ys) contains x = xs contains x || ys contains x
+
+===============================================================================
+
+First, we prove this proposition:
+
+Prop. (1)
+
+If xs = NonEmpty(z, l, r) and x < z, then
+r contains x = false
+
+Proof:
+
+We show by using structural induction.
+
+---
+
+Base case: Suppose r = Empty
+
+LHS:
+
+Empty contains x
+= false
+= RHS
+
+---
+
+Induction step: Suppose r = NonEmpty(z1, l1, r1)
+
+Induction hypothesis: For any proper subtree rs of r,
+rs contains x = false
+
+NonEmpty(z1, l1, r1) contains x
+= l1 contains x               // Since x < z < z1 and by def'n of contains
+= false                       // By induction hypothesis
+
+QED
+
+===============================================================================
+
+Similarly, we can show that
+
+Prop. (2)
+
+If xs = NonEmpty(z, l, r) and x > z, then
+l contains x = false
+
+Proof:
+
+Exactly analogous to the proof of Prop. (1)
+
+===============================================================================
+
+Now, we go back to proving:
+
+(xs union ys) contains x = xs contains x || ys contains x
+
+We proceed by structural induction.
+
+---
+
+Base case: Suppose xs = Empty
+
+To show:
+
+(Empty union ys) contains x = Empty contains x || ys contains x
+
+LHS:
+
+(Empty union ys) contains x
+= ys contains x                        // Def'n of union
+= Empty contains x || ys contains x    // Def'n of OR
+= RHS
+
+---
+
+Induction step: Suppose xs = NonEmpty(z, l, r)
+
+To show:
+
+(NonEmpty(z, l, r) union ys) contains x = NonEmpty(z, l, r) contains x || ys contains x
+
+Induction hypothesis: For all proper subtrees zs of xs,
+
+(zs union ys) contains x = zs contains x || ys contains x
+
+LHS:
+
+(NonEmpty(z, l, r) union ys) contains x
+= ((l union (r union ys)) incl z) contains x      // Def'n of union
+
+There are three cases, z = x, z > x, or z < x:
+
+1) If z = x:
+
+LHS
+= ((l union (r union ys)) incl x) contains x
+= true                                            // Def'n of incl
+= NonEmpty(x, l, r) contains x                    // Def'n of contains
+= NonEmpty(z, l, r) contains x || ys contains x   // Def'n of OR
+= RHS
+
+2) If z > x:
+
+LHS
+= ((l union (r union ys)) incl z) contains x
+= (l union (r union ys)) contains x               // Def'n of contains
+= l contains x || (r union ys) contains x         // Induction hypothesis
+= l contains x || r contains x || ys contains x   // Induction hypothesis
+= l contains x || ys contains x                   // By Prop. (1) and def'n of OR
+= NonEmpty(z, l, r) contains x || ys contains x   // Def'n of contains
+= RHS
+
+3) If z < x:
+
+The proof is analogous to the case when z > x, this time using Prop. (2)
+
+QED

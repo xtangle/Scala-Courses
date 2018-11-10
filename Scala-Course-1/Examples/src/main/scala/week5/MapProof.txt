@@ -1,0 +1,57 @@
+To prove:
+
+(xs ++ ys) map f = (xs map f) ++ (ys map f)
+
+Clauses of ++ (concat):
+
+      Nil ++ ys  =  ys
+(x :: xs) ++ ys  =  x :: (xs ++ ys)
+
+Clauses of map:
+
+      Nil map f  =  Nil
+(x :: xs) map f  =  f(x) :: (xs map f)
+
+===============================================================================
+
+Proof:
+
+Base case:
+
+To show:
+
+(Nil ++ ys) map f = (Nil map f) ++ (ys map f)
+
+LHS:
+
+(Nil ++ ys) map f
+= ys map f                             // 1st clause of ++ (unfold)
+
+RHS:
+
+(Nil map f) ++ (ys map f)
+= Nil ++ (ys map f)                    // 1st clause of map (unfold)
+= ys map f                             // 1st clause of ++ (unfold)
+
+Done
+
+Induction step:
+
+To show:
+
+((x :: xs) ++ ys) map f = ((x :: xs) map f) ++ (ys map f)
+
+Induction hypothesis:
+
+(xs ++ ys) map f = (xs map f) ++ (ys map f)
+
+LHS:
+
+((x :: xs) ++ ys) map f
+= (x :: (xs ++ ys)) map f              // 2nd clause of ++ (unfold)
+= f(x) :: ((xs ++ ys) map f)           // 2nd clause of map (unfold)
+= f(x) :: ((xs map f) ++ (ys map f))   // induction hypothesis
+= (f(x) :: (xs map f)) ++ (ys map f)   // 2nd clause of ++ (fold)
+= ((x :: xs) map f) ++ (ys map f)      // 2nd clause of map (fold)
+
+QED

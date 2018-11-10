@@ -1,0 +1,5 @@
+{"id":101, "subscription":{"name":"Ruetli", "type":"AG", "price":100}}
+{"id":102, "subscription":{"name":"Brelaz", "type":"DemiTarif", "price":75}}
+{"id":103, "subscription":{"name":"Gress", "type":"DemiTarifVisa", "price":82.5}}
+{"id":104, "subscription":{"name":"Schatten", "type":"DemiTarif", "price":60}}
+{"id":105, "subscription":null}
